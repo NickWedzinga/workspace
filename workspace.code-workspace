@@ -1,6 +1,10 @@
 {
   "folders": [
     {
+      "name": "Setup",
+      "path": "setup"
+    },
+    {
       "name": "Project files",
       "path": "."
     }
@@ -16,7 +20,9 @@
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "eslint.validate": ["javascript", "typescript"],
-    "files.exclude": {},
+    "files.exclude": {
+      "setup": true
+    },
     "files.eol": "\n",
     "search.exclude": {},
     "typescript.preferences.importModuleSpecifier": "non-relative",
