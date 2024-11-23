@@ -1,0 +1,5 @@
+# List of setup scripts to execute.
+# Scripts are executed in order.
+
+brew.sh:Installs Homebrew package manager
+# Add new scripts here in the format: script-name.sh:Description
