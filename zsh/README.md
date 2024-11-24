@@ -129,6 +129,66 @@ brew install bat
 
 This plugin lets you preview files with bat instead of cat. Now you can just preview files with: `bat example.txt`
 
+## Functions
+
+Create a `functions.zsh` under `.oh-my-zsh/custom/functions.zsh` if you haven't already. Add the following functions to your `functions.zsh`.
+
+### fd
+
+We have implemented a fuzzy find function that let's you navigate to any directory or file on your system by searching with sub-strings. The function will only search in pre-defined directories as to avoid directories that you would never want to visit.
+
+Add this in your `functions.zsh`:
+
+```bash
+# cd to searchable directory
+fd() {
+  local selection
+  local dir
+
+  # Read directories from `directories.txt` and search within them
+  selection=$(cat ~/.oh-my-zsh/custom/directories.txt | while read -r base; do
+    base=${base/#\~/$HOME}  # Expand ~ to $HOME
+    if [ -d "$base" ]; then
+      echo "$base"
+      find "$base" \( -name ".git" -o -name "node_modules" -o -name "dist" -o -name "build" -o -name "out" -o -name ".vscode" -o -name ".idea" -o -name "Library" \) -prune -o -print 2>/dev/null
+    fi
+  done | fzf --height 20% --reverse --prompt="Search for file or directory: ")
+
+  # Determine if selection is a file or directory
+  if [ -d "$selection" ]; then
+    # If a directory is selected, change to it
+    cd "$selection"
+  elif [ -f "$selection" ]; then
+    # If a file is selected, change to its directory
+    dir=$(dirname "$selection")
+    cd "$dir"
+  else
+    echo "No selection was made."
+  fi
+}
+```
+
+You can either create and add searchable directories yourself or use the [adddir alias](#adddir). If you decide to create it yourself then place it in `.oh-my-zsh/custom/directories.txt` and add a line for each directory, using absolute paths.
+
+Instead of using `cd` you can now use `fd` to bring up an in-line console that let's you search for directories and files.
+
+### greset
+
+We have implemented a git function that let's you reset a custom amount of commits and unstages those changes. This is especially useful for squashing commits, or resuming work on WIP commits.
+
+Add this in your `functions.zsh`:
+
+```bash
+greset() {
+    local commits=${1:-1}  # Default to 1 commit
+    git reset --soft HEAD~"$commits" && git reset
+}
+```
+
+You can use this like:
+`greset` which will default to 1 commit
+`greset 3` which would reset your last 3 commits
+
 <!-- Links -->
 
 [omz]: https://ohmyz.sh/
