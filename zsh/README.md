@@ -189,6 +189,44 @@ You can use this like:
 `greset` which will default to 1 commit
 `greset 3` which would reset your last 3 commits
 
+## Aliases
+
+Create a `aliases.zsh` under `.oh-my-zsh/custom/aliases.zsh` if you haven't already. Add the following aliases to your `aliases.zsh`.
+
+### adddir
+
+This alias let's you quickly add the current directory to `directories.txt` using `pwd` for use with the [fuzzy find cd](#fd) function listed above.
+
+```bash
+alias adddir='find "$(pwd)" \( $(build_exclude_filter) \) -o -type d -print | sort -u >> ~/.oh-my-zsh/custom/directories.txt && sort -u ~/.oh-my-zsh/custom/directories.txt -o ~/.oh-my-zsh/custom/directories.txt && echo "Added $(pwd) to directories.txt" && source ~/.zshrc'
+```
+
+Running `adddir` will grab the absolute path of the current directory, add it to `directories.txt`, sort the file, print the added directory and reload your `.zshrc`.
+
+### git aliases
+
+The [git](#git) plugin already adds a lot of git aliases, but these are some other ones that we recommend. Add these to your `aliases.zsh`.
+
+```bash
+alias gpu='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
+alias gforce='git push --force-with-lease'
+alias gmend='git commit --amend --no-edit'
+```
+
+`gpu` let's you quickly push up a new branch, this creates a branch on the remote origin matching your current branch name and pushes the code.
+
+`gforce` is useful for force-pushing amended commits using `force-with-lease`. Please be careful about force pushing.
+
+`gmend` let's you `git --amend` your last commit with no commit message changes.
+
+### navigation
+
+```bash
+alias ll='ls -la'
+```
+
+`ll` let's you quickly list all files in the current directory with more information using `ls -la`.
+
 <!-- Links -->
 
 [omz]: https://ohmyz.sh/
