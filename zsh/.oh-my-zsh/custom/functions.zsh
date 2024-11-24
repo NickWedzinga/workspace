@@ -50,3 +50,7 @@ wip() {
     echo "Not inside a Git repository."
   fi
 }
+
+log_debug() {
+  [[ -n "$DEBUG" ]] && echo "[DEBUG] $*" >&2
+}
