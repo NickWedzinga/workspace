@@ -30,3 +30,23 @@ greset() {
     local commits=${1:-1}  # Default to 1 commit
     git reset --soft HEAD~"$commits" && git reset
 }
+
+
+wip() {
+  local git_root=$(git rev-parse --show-toplevel 2>/dev/null)
+  if [[ -n "$git_root" ]]; then
+    local source_dir=$(pwd)
+
+    cd "$git_root" || return
+    echo "Moved to Git root directory: $git_root"
+
+    git add .
+    git commit -m "WIP"
+    echo "Changes committed with message: WIP"
+
+    cd "$source_dir" || return
+    echo "Moved back to original directory: $source_dir"
+  else
+    echo "Not inside a Git repository."
+  fi
+}
