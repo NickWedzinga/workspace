@@ -8,9 +8,25 @@ We provide the Zsh config we use [here][zshrc], we recommend you override your .
 
 ## Themes
 
-🚧
-TODO: Add custom theme
-🚧
+We have implemented our own theme called nerolislab.zsh-theme, you can find it [here](./.oh-my-zsh/custom/nerolislab.zsh-theme) in this repository. Place this under ~/.oh-my-zsh/custom/ and either use our .zshrc or change `ZSH_THEME` to `nerolislab` in your own .zshrc.
+
+This theme includes the following in a prettified format:
+
+- current directory
+- current working git branch
+- current branch dirty state (any uncommitted changes)
+- current timestamp
+- day of the week
+- date
+- current temperature
+
+_NOTE; for the temperature to be accurate you need to update the latitude and longitude in the nerolislab.zsh-theme_
+
+```bash
+# Tokyo, Japan
+local latitude="35.689487"
+local longitude="139.691711"
+```
 
 ## Plugins
 
